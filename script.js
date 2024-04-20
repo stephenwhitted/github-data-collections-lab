@@ -147,7 +147,43 @@ For instance, the results of the example data above being passed through this st
 becomes
 [{ id: "42", name: "Bruce", occupation: "Knight", age: "41" }, { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" }, { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" }, { id: "98", name: "Bill", occupation: "Doctor’s Assistant", age: "26" }]
 Important: While this functionality can be built into the original CSV parser you built in Part 2, we are intentionally creating two different algorithms to test different skillsets. Please leave these sections separate even if it would be more efficient to combine them. */
+const csvData3 = [
+    ["ID", "Name", "Occupation", "Age"],
+    ["42", "Bruce", "Knight", "41"],
+    ["57", "Bob", "Fry Cook", "19"],
+    ["63", "Blaine", "Quiz Master", "58"],
+    ["98", "Bill", "Doctor’s Assistant", "26"]
+];
 
+// CSV-like array -> array of objects
+function convertCSVToObject(csvData3) {
+    // objects from CSV rows.
+    const objectArray = [];
+
+    // column names from CSV's first row
+    const headers = csvData3[0];
+
+    // iterate over rows starting from the second (index 1)
+    for (let i = 1; i < csvData3.length; i++) {
+        // object for current row data
+        const rowObject = {};
+
+        // iterate through current row's columns
+        for (let j = 0; j < headers.length; j++) {
+            // object keys from headers, values from columns
+            rowObject[headers[j]] = csvData3[i][j];
+        }
+
+        // add populated object to array
+        objectArray.push(rowObject);
+    }
+
+    return objectArray;
+}
+
+
+const convertedData = convertCSVToObject(csvData3);
+console.log(convertedData);
 
 
 
