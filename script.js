@@ -209,8 +209,84 @@ Add the following object to the end of the array:
 So far, the results should look like this:
 [{ id: "42", name: "Bruce", occupation: "Knight", age: "41" }, { id: "48", name: "Barry", occupation: "Runner", age: "25" }, { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" }, { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" }, { id: "7", name: "Bilbo", occupation: "None", age: "111" }]
 Finally, use the values of each object within the array and the array’s length property to calculate the average age of the group. This calculation should be accomplished using a loop. */
+const people = [
+    { id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+    { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+    { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+    { id: "98", name: "Bill", occupation: "Doctor’s Assistant", age: "26" }
+];
+
+// get rid of last element of array
+people.pop();
+
+// new object at index 1
+people.splice(1, 0, { id: "48", name: "Barry", occupation: "Runner", age: "25" });
+
+// new object at end of array
+people.push({ id: "7", name: "Bilbo", occupation: "None", age: "111" });
+
+// 
+console.log(people);
+
+// calculate the average age
+function calculateAverageAge(peopleArray) {
+    let totalAge = 0;
+    let numberOfPeople = peopleArray.length;
+
+    // sum all ages
+    for (let i = 0; i < numberOfPeople; i++) {
+        totalAge += parseInt(peopleArray[i].age);
+    }
+
+    // find the average age
+    return totalAge / numberOfPeople;
+}
+
+// find and display the avg age
+const averageAge = calculateAverageAge(people);
+console.log("Average Age:", averageAge);
 
 
+
+
+
+
+///////////Part 5//////////////////////////////////////////////////////////
+const itemsList = [
+    { id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+    { id: "48", name: "Barry", occupation: "Runner", age: "25" },
+    { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+    { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+    { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+];
+
+function createCSV(data) {
+    // see if data array is empty
+    if (data.length === 0) {
+        return "";
+    }
+
+    // store each line of the CSV in array
+    const csvLines = [];
+
+    // keys from the first object -> CSV headers
+    const columnHeaders = Object.keys(data[0]);
+    csvLines.push(columnHeaders.join(','));
+
+    // CSV lines for each object in the array
+    for (const entry of data) {
+        // align each object's values with the headers and concatenate them using commas
+        const line = columnHeaders.map(field => `"${entry[field]}"`).join(',');
+        csvLines.push(line);
+    }
+
+    // CSV lines -> single string ('\n')
+    return csvLines.join('\n');
+}
+
+// data array -> CSV string
+const formattedCSV = createCSV(itemsList);
+console.log("CSV Data Output:\n" + formattedCSV);
 
 
 
